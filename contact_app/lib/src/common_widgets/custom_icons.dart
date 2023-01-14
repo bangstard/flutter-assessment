@@ -23,12 +23,14 @@ class MyFlutterApp {
 
   static const IconData flyer =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData group_7 =
+  static const IconData smallPencil =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData email =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData trash =
       IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData vector_1 =
+  static const IconData favorite =
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData vector =
+  static const IconData bigPencil =
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

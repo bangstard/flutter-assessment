@@ -1,5 +1,6 @@
 import 'package:contact_app/src/constants/app_sizes.dart';
 import 'package:contact_app/src/features/contact/presentation/favorite/screen/favorite_screen.dart';
+import 'package:contact_app/src/features/contact/presentation/home_bottom_sheet.dart';
 import 'package:contact_app/src/features/contact/presentation/my_contact/screen/mycontact_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -39,85 +40,105 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('My Contacts'),
         centerTitle: true,
+        elevation: 0,
         actions: [
           IconButton(
             icon: Image.asset('assets/images/Union.png'),
-            onPressed: () {},
+            onPressed: () {
+              // todo sync data with api
+            },
           ),
         ],
       ),
-      body: Column(
+      floatingActionButton: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height * 0.05,
+        ),
+        child: Align(
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: const Icon(Icons.add),
+          ),
+        ),
+      ),
+      body: Stack(
         children: [
-          const SearchTextField(),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(Sizes.p32),
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Row(
+          Column(
+            children: [
+              const SearchTextField(),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(Sizes.p32),
+                  color: Colors.white,
+                  child: Column(
                     children: [
-                      GestureDetector(
-                        child: Card(
-                          color: _subRoute == HomeScreenSubRoute.myContact
-                              ? Theme.of(context).primaryColorDark
-                              : null,
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('All'),
+                      Row(
+                        children: [
+                          GestureDetector(
+                            child: Card(
+                              color: _subRoute == HomeScreenSubRoute.myContact
+                                  ? Theme.of(context).primaryColorDark
+                                  : null,
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text('All'),
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                _subRoute = HomeScreenSubRoute.myContact;
+                                // perform a nice scroll animation to reveal the next page
+                                _controller.animateToPage(
+                                  _subRoute.index,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeInOut,
+                                );
+                              });
+                            },
                           ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _subRoute = HomeScreenSubRoute.myContact;
-                            // perform a nice scroll animation to reveal the next page
-                            _controller.animateToPage(
-                              _subRoute.index,
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.easeInOut,
-                            );
-                          });
-                        },
+                          GestureDetector(
+                            child: Card(
+                              color: _subRoute == HomeScreenSubRoute.favorite
+                                  ? Theme.of(context).primaryColorDark
+                                  : null,
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text('Favorite'),
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                _subRoute = HomeScreenSubRoute.favorite;
+                                // perform a nice scroll animation to reveal the next page
+                                _controller.animateToPage(
+                                  _subRoute.index,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeInOut,
+                                );
+                              });
+                            },
+                          ),
+                        ],
                       ),
-                      GestureDetector(
-                        child: Card(
-                          color: _subRoute == HomeScreenSubRoute.favorite
-                              ? Theme.of(context).primaryColorDark
-                              : null,
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Favorite'),
-                          ),
+                      gapH24,
+                      Expanded(
+                        child: PageView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          controller: _controller,
+                          children: const [
+                            MyContactScreen(),
+                            FavoriteScreen(),
+                          ],
                         ),
-                        onTap: () {
-                          setState(() {
-                            _subRoute = HomeScreenSubRoute.favorite;
-                            // perform a nice scroll animation to reveal the next page
-                            _controller.animateToPage(
-                              _subRoute.index,
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.easeInOut,
-                            );
-                          });
-                        },
                       ),
                     ],
                   ),
-                  gapH24,
-                  Expanded(
-                    child: PageView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: _controller,
-                      children: const [
-                        MyContactScreen(),
-                        FavoriteScreen(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+                ),
+              )
+            ],
+          ),
+          const homeBottomSheet()
         ],
       ),
     );

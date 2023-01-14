@@ -14,19 +14,24 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (BuildContext context) => 'My Contacts',
       theme: ThemeData(
-        primaryColor: Colors.grey[200],
-        primaryColorLight: const Color.fromRGBO(235, 248, 246, 1),
-        primaryColorDark: const Color.fromRGBO(50, 186, 165, 1),
-        fontFamily: 'Raleway',
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromRGBO(50, 186, 165, 1),
-          foregroundColor: Colors.white,
-        ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color.fromRGBO(50, 186, 165, 1),
-          foregroundColor: Colors.white,
-        ),
-      ),
+          primaryColor: Colors.grey[200],
+          primaryColorLight: const Color.fromRGBO(235, 248, 246, 1),
+          primaryColorDark: const Color.fromRGBO(50, 186, 165, 1),
+          fontFamily: 'Raleway',
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color.fromRGBO(50, 186, 165, 1),
+            foregroundColor: Colors.white,
+          ),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Color.fromRGBO(50, 186, 165, 1),
+            foregroundColor: Colors.white,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(50, 186, 165, 1),
+              foregroundColor: Colors.white,
+            ),
+          )),
     );
   }
 }
